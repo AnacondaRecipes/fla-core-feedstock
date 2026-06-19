@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "0.5.0"
+  version: "0.5.1"
 
 package:
   name: fla-core
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/f/fla-core/fla_core-${{ version }}.tar.gz
-  sha256: 476dd94711702af81cc4827010d9209f6053d8cdceac8e43d3c8497071f07a81
+  sha256: 7f3cf56edfbaa9115f4937d1181372e5c7b11809ad8eb2e411fffc3caf729f48
 
 build:
   number: 0

@@ -1,0 +1,48 @@
+schema_version: 1
+
+context:
+  version: "0.5.1"
+
+package:
+  name: fla-core
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/f/fla-core/fla_core-${{ version }}.tar.gz
+  sha256: 7f3cf56edfbaa9115f4937d1181372e5c7b11809ad8eb2e411fffc3caf729f48
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - setuptools
+    - wheel
+    - pip
+  run:
+    - python >=${{ python_min }}
+    - pytorch >=2.7.0
+    - triton >=3.3
+    - einops
+
+tests:
+  - python:
+      imports:
+        - fla
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - '*'
+
+about:
+  summary: Core operations for flash-linear-attention
+  license: MIT
+  license_file: LICENSE
+  homepage: https://github.com/fla-org/flash-linear-attention
+
+extra:
+  recipe-maintainers:
+    - chrisdeutsch

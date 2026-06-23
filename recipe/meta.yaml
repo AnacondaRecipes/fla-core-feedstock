@@ -1,0 +1,61 @@
+{% set name = "fla-core" %}
+{% set version = "0.5.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/f/{{ name }}/fla_core-{{ version }}.tar.gz
+  sha256: 7f3cf56edfbaa9115f4937d1181372e5c7b11809ad8eb2e411fffc3caf729f48
+
+build:
+  number: 0
+  # triton (a hard runtime dep) is only available on linux-64 on pkgs/main
+  skip: true  # [not linux64]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+
+requirements:
+  host:
+    - python
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python
+    - pytorch >=2.7.0
+    - triton >=3.3
+    - einops
+  run_constrained:
+    # fla.layers / fla.models use transformers, but fla/__init__.py imports them
+    # optionally (graceful degradation), so it's not required for `import fla`.
+    # Bound from the sibling flash-linear-attention package.
+    - transformers >=4.45.0
+
+test:
+  imports:
+    - fla
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/fla-org/flash-linear-attention
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Core operations for flash-linear-attention
+  description: |
+    fla-core provides the core Triton-based operators and modules of the
+    flash-linear-attention project, implementing efficient linear-attention and
+    related sequence-modeling kernels for PyTorch.
+  doc_url: https://github.com/fla-org/flash-linear-attention
+  dev_url: https://github.com/fla-org/flash-linear-attention
+
+extra:
+  skip-lints:
+    # pytorch is a CBC-pinned runtime-only dep (pure-Python; not linked at build)
+    - cbc_dep_in_run_missing_from_host
+  recipe-maintainers:
+    - chrisdeutsch

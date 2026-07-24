@@ -29,6 +29,10 @@ requirements:
     # triton is not declared in 0.4.1's [project.dependencies] (only torch +
     # einops), but fla.ops / fla.modules import it — it is a hard runtime dep.
     - triton
+    # packaging is also undeclared upstream but imported eagerly by fla.utils
+    # (from packaging import version). It is not reliably pulled in transitively
+    # (py3.14 test env lacked it), so declare it explicitly.
+    - packaging
 
 test:
   imports:

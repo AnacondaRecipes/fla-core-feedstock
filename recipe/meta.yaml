@@ -24,7 +24,9 @@ requirements:
   run:
     - python
     - pytorch >=2.7.0
-    - triton >=3.3
+    # triton version 3.9 rejects autotune key "BT" in fla/ops/cp/chunk_delta_h.py (the fla.ops import fails).
+    # remove upper bound once the issue is fixed upstream.
+    - triton >=3.3,<3.9
     - einops
   run_constrained:
     # fla.layers / fla.models use transformers, but fla/__init__.py imports them

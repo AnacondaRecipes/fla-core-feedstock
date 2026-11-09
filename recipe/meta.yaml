@@ -10,7 +10,7 @@ source:
   sha256: 9360fc412f784c1c8f05c320ec2902d5d968764178c9b8a92efc919e17a39680
 
 build:
-  number: 0
+  number: 1
   # triton (a hard runtime dep) is only available on linux-64 on pkgs/main
   skip: true  # [py<310 or not linux64]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv

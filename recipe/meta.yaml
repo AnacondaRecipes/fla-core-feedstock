@@ -28,6 +28,7 @@ requirements:
     # remove upper bound once the issue is fixed upstream.
     - triton >=3.3,<3.9
     - einops
+    - packaging
   run_constrained:
     # fla.layers / fla.models use transformers, but fla/__init__.py imports them
     # optionally (graceful degradation), so it's not required for `import fla`.

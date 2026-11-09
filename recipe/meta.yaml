@@ -35,6 +35,7 @@ requirements:
 test:
   imports:
     - fla
+    - fla.ops
   commands:
     - pip check
   requires:
